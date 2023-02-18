@@ -1,10 +1,14 @@
+/* *****************************************************************************
+   *** haggggyadmaa a port aatirogatasat 3000-en mert a build nem muxik !!! ****
+   ***************************************************************************** */
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-/* import './index.css'; */
-/* import App from './App'; */
-import Hello from './Hello';
-import Login from './components/login'
-
+import Hello from './components/Hello';
+import Login from './components/Login'
+const vmi = require('./init')
+console.log('-----retur vmi-----', vmi.default)
+console.log('******ezt vizsgald!!! ******', localStorage.getItem('token'))
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,3 +17,5 @@ root.render(
     <Login />
   </div>
 );
+
+console.log('ezeddig OK!')
