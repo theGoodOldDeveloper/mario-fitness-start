@@ -3,11 +3,17 @@ const sqlite = require('sqlite3').verbose()
 const axios = require('axios')
 const dotenv = require('dotenv').config()
 const bodyParser = require('body-parser')
+const cors = require('cors')
 
 const app = express()
 let sql
 let port = process.env.SERVERPORT
 app.use(bodyParser.json())
+
+app.use(cors({
+    origin: true,
+    methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+}))
 
 //INFO:TODO:INFO: database connection - https://youtu.be/_Q-i0LiRd0A?t=289
 const db = new sqlite.Database("./databases/test.db", sqlite.OPEN_READWRITE, (err) => {
@@ -22,7 +28,7 @@ const db = new sqlite.Database("./databases/test.db", sqlite.OPEN_READWRITE, (er
 app.get('/users', (req, res) => {
     sql = 'SELECT * FROM users;'
     db.all(sql, [], (err, response) => {
-        console.log('response: 😁 ', response)
+        //console.log('response: 😁 ', response)
         if (err) return console.error(err)
         res.send(response)
     })

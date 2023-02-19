@@ -1,0 +1,1 @@
+export const models = [{ "id": 1, "username": "sususoft", "emil": "photovegh@gmail.com", "password": "alma" }, { "id": 2, "username": "johnDoe", "emil": "johndoe@gmail.com", "password": "körte" }, { "id": 3, "username": "janeDoe", "emil": "janedoe@gmail.com", "password": "banana" }]

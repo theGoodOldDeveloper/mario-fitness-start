@@ -1,66 +1,68 @@
-/* ********************************
-   ****    class v. hook        ***
-   ******************************** */
-import React from 'react'
-import logo from './logo.svg';
-/* import './App.css'; */
+import { useState, useEffect } from "react";
 
-class App extends React.Component {
-  render() {
+export default function App() {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const getData = async () => {
+            try {
+                const response = await fetch(
+                    "http://localhost:5002/users"
+                );
+                if (!response.ok) {
+                    throw new Error(
+                        `This is an HTTP error: The status is ${response.status}`
+                    );
+                }
+                let actualData = await response.json();
+                setData(actualData);
+                setError(null);
+            } catch (err) {
+                setError(err.message);
+                setData(null);
+            } finally {
+                setLoading(false);
+            }
+        }
+        getData()
+    }, [])
+
+
+
     return (
-      <div className="App" >
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Hello World! 😋
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          <h6>
-            made in susuSoft (2023)
-          </h6>
-          <h1>
-            Hello React 😁
-          </h1>
-        </header>
-      </div>
+        <div className="App">
+            <h1>API Posts</h1>
+            {loading && <div>A moment please...</div>}
+            {error && (
+                <div>{`There is a problem fetching the post data - ${error}`}</div>
+            )}
+
+            {data.map((post, index) =>
+                <li key={index}>{post.username}</li>
+            )}
+
+        </div>
     );
-  }
-
+    /* return (
+        <div className="App">
+            <h1>API Posts</h1>
+            {loading && <div>A moment please...</div>}
+            {error && (
+                <div>{`There is a problem fetching the post data - ${error}`}</div>
+            )}
+            <ul>
+                {data &&
+                    data.map(({ id, username, emil, password }) => (
+                        <li>
+                            <h3>{id}</h3>
+                            <h3>{username}</h3>
+                            <h3>{emil}</h3>
+                            <h3>{password}</h3>
+                        </li>
+                    ))}
+            </ul>
+        </div>
+    ); */
 }
-
-export default App;
-
-/* function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hello World! 😋
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <h6>
-          made in susuSoft (2023)
-        </h6>
-        <h1>
-          Hello React 😁
-        </h1>
-      </header>
-    </div>
-  );
-}
- */
