@@ -1,4 +1,30 @@
-import { useState, useEffect } from "react";
+import React from "react";
+import { Route, Routes, Navigate } from 'react-router-dom'
+import Hello from "./Hello";
+import Login from "./Login";
+import MessageModal from "./MessageModal.jsx";
+
+const App = () => {
+    return (
+        <React.Fragment>
+            {/* <MessageModal /> */}
+            <Routes>
+                <Route path={"/"} element={<Hello />} />
+                <Route path={"/login"} element={<Login />} />
+            </Routes>
+        </React.Fragment>
+    )
+}
+
+export default App;
+
+
+
+
+
+
+
+/* import { useState, useEffect } from "react";
 
 export default function App() {
     const [data, setData] = useState(null);
@@ -44,25 +70,30 @@ export default function App() {
             )}
 
         </div>
-    );
-    /* return (
-        <div className="App">
-            <h1>API Posts</h1>
-            {loading && <div>A moment please...</div>}
-            {error && (
-                <div>{`There is a problem fetching the post data - ${error}`}</div>
-            )}
-            <ul>
-                {data &&
-                    data.map(({ id, username, emil, password }) => (
-                        <li>
-                            <h3>{id}</h3>
-                            <h3>{username}</h3>
-                            <h3>{emil}</h3>
-                            <h3>{password}</h3>
-                        </li>
-                    ))}
-            </ul>
-        </div>
     ); */
+
+
+
+
+/* return (
+    <div className="App">
+        <h1>API Posts</h1>
+        {loading && <div>A moment please...</div>}
+        {error && (
+            <div>{`There is a problem fetching the post data - ${error}`}</div>
+        )}
+        <ul>
+            {data &&
+                data.map(({ id, username, emil, password }) => (
+                    <li>
+                        <h3>{id}</h3>
+                        <h3>{username}</h3>
+                        <h3>{emil}</h3>
+                        <h3>{password}</h3>
+                    </li>
+                ))}
+        </ul>
+    </div>
+    ); 
 }
+    */

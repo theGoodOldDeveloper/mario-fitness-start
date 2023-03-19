@@ -34,6 +34,22 @@ app.get('/users', (req, res) => {
     })
 })
 
+//INFO - create contact
+app.post('/createuser/', bodyParser.json(), async (req, res) => {
+    //NOTE - id generator -> nanoid
+    //var id = nanoid(10)
+    console.log('req.body (): ', req.body)
+    var member = req.body
+    sql = "INSERT INTO users (username, emil, password,isinmember) VALUES (?,?,?,?)"
+    await db.run(sql, [member.username, member.emil, 'alma', true],
+        (err) => {
+            if (err) return console.error(err)
+        })
+    //res.end()
+    res.header("Access-Control-Allow-Origin", "*");
+    res.send('new person added...')
+})
+
 //INFO:TODO:INFO: get data
 //getAllData()
 async function getAllData() {

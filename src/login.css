@@ -1,0 +1,36 @@
+/* body {
+  background-image: 'loginBackground.jpg';
+  background-image: url("../public/loginBackground.jpg");
+} */
+
+
+.logginRegister {
+
+  height: 100vh;
+  background-color: aqua;
+  /* width: 100vh; */
+  /* background-color: aqua */
+  /* background-image: url("../public/loginBackground.jpg"); */
+}
+
+
+.emil {
+  position: relative;
+  top: 20%;
+}
+
+.emilImage {
+  position: relative;
+  width: 10rem;
+  height: auto;
+}
+
+/* .portraitImage {
+  position: relative;
+  top: 50%;
+} */
+
+.regBTN {
+  position: relative;
+  top: 35%;
+}
