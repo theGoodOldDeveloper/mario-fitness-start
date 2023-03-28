@@ -7,9 +7,6 @@ import trainingType from "../services/TrainingType";
 import pastTime from "./PastTime"
 import personReservation from "./PersonReservationColor"
 
-//const [show, setShow] = useState(false);
-
-
 console.log('trainingType: ', trainingType)
 
 let datum = new Date()
@@ -24,9 +21,8 @@ let prColor = 'btn btn-success m-1'
 
 function onClickReaction(data) {
     console.log('click vooot', data)
+    alert('foglaltam a kovetkezore: ' + data)
 }
-
-
 
 /* console.log(weekDay)
 console.log(datum)
