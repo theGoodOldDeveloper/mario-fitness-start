@@ -1,0 +1,79 @@
+[
+  {
+    "trainingID": "MON-ALF-16-30",
+    "trainingName": "Alakformáló",
+    "time": "16.30",
+    "hour": 16,
+    "minute": 30
+  },
+  {
+    "trainingID": "MON-STR-17-45",
+    "trainingName": "Streching",
+    "time": "17.45",
+    "hour": 17,
+    "minute": 45
+  },
+  {
+    "trainingID": "TUE-TRX-16-30",
+    "trainingName": "TRX",
+    "time": "16.30",
+    "hour": 16,
+    "minute": 30
+  },
+  {
+    "trainingID": "TUE-TRX-17-45",
+    "trainingName": "TRX",
+    "time": "17.45",
+    "hour": 17,
+    "minute": 45
+  },
+  {
+    "trainingID": "TUE-TRX-19-0",
+    "trainingName": "TRX",
+    "time": "19.00",
+    "hour": 19,
+    "minute": 0
+  },
+  {
+    "trainingID": "WED-JOG-19-0",
+    "trainingName": "Jóga",
+    "time": "19.00",
+    "hour": 19,
+    "minute": 0
+  },
+  {
+    "trainingID": "THU-TRX-16-30",
+    "trainingName": "TRX",
+    "time": "16.30",
+    "hour": 16,
+    "minute": 30
+  },
+  {
+    "trainingID": "THU-TRX-17-45",
+    "trainingName": "TRX",
+    "time": "17.45",
+    "hour": 17,
+    "minute": 45
+  },
+  {
+    "trainingID": "THU-TRX-19-0",
+    "trainingName": "TRX",
+    "time": "19.00",
+    "hour": 19,
+    "minute": 0
+  },
+  {
+    "trainingID": "SUN-TRX-9-0",
+    "trainingName": "TRX",
+    "time": "09.00",
+    "hour": 9,
+    "minute": 0
+  },
+  {
+    "trainingID": "SUN-TRX-10-15",
+    "trainingName": "TRX",
+    "time": "10.15",
+    "hour": 10,
+    "minute": 15
+  }
+]
