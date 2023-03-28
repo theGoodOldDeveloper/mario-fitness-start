@@ -4,7 +4,8 @@
 const datum = new Date()
 let sendDatum = new Date()
 
-const pastTime = (day, hour, minute) => {
+const pastTime = (month, day, hour, minute) => {
+  sendDatum.setMonth(month)
   sendDatum.setDate(day)
   sendDatum.setHours(hour)
   sendDatum.setMinutes(minute)
@@ -14,8 +15,9 @@ const pastTime = (day, hour, minute) => {
   console.log('weekDay', weekDay)
   console.log('hour', hour)
   console.log('minute', minute) */
+  /* console.log('**************************', month)
   console.log('--------------------------', datum)
-  console.log('--------------------------', sendDatum)
+  console.log('--------------------------', sendDatum) */
   /* console.log(weekDay < datum.getDay())
   console.log(hour < datum.getHours())
   console.log(minute < datum.getMinutes()) */
