@@ -25,6 +25,7 @@ const db = new sqlite.Database("./databases/test.db", sqlite.OPEN_READWRITE, (er
 
 })
 
+//INFO - get all users
 app.get('/users', (req, res) => {
     sql = 'SELECT * FROM users;'
     db.all(sql, [], (err, response) => {
@@ -34,7 +35,7 @@ app.get('/users', (req, res) => {
     })
 })
 
-//INFO - create contact
+//INFO - create user
 app.post('/createuser/', bodyParser.json(), async (req, res) => {
     //NOTE - id generator -> nanoid
     //var id = nanoid(10)
@@ -47,7 +48,21 @@ app.post('/createuser/', bodyParser.json(), async (req, res) => {
         })
     //res.end()
     res.header("Access-Control-Allow-Origin", "*");
-    res.send('new person added...')
+    res.send('new user added...')
+})
+
+//INFO - delete user
+app.delete('/deleteuser/:id', (req, res) => {
+    var id = (req.params.id)
+    console.log('req.params.id:(get ONE user) 😁 ', [id])
+    sql = `DELETE FROM users WHERE id=?`
+    //console.log(sql)
+    db.run(sql, [id], (err, response) => {
+        response = `the id: ${id} user deleted...`
+        console.log('response:(delete ONE user) 😁 ', response)
+        if (err) return console.error(err)
+        res.send(response)
+    })
 })
 
 //INFO:TODO:INFO: get data
@@ -62,6 +77,48 @@ async function getAllData() {
         })
     })
 }
+
+//INFO - get all trainings
+app.get('/trainings', (req, res) => {
+    sql = 'SELECT * FROM trainings;'
+    db.all(sql, [], (err, response) => {
+        //console.log('response: 😁 ', response)
+        if (err) return console.error(err)
+        res.send(response)
+    })
+})
+
+//INFO - create training booking
+app.post('/createtrainingbooking/', bodyParser.json(), async (req, res) => {
+    //NOTE - id generator -> nanoid
+    //var id = nanoid(10)
+    console.log('req.body (): ', req.body)
+    var member = req.body
+    var bookingDATE = new Date()
+    console.log('bookingDATE: ', bookingDATE)
+    sql = "INSERT INTO trainings (trainingID, name, trainingDATE, bookingID, bookingDATE) VALUES (?,?,?,?,?)"
+    await db.run(sql, [member.trainingID, member.name, member.trainingDATE, member.bookingID, bookingDATE],
+        (err) => {
+            if (err) return console.error(err)
+        })
+    //res.end()
+    res.header("Access-Control-Allow-Origin", "*");
+    res.send('new training booking added...')
+})
+
+//INFO - training booking
+app.delete('/deletetrainingbooking/:id', (req, res) => {
+    var id = (req.params.id)
+    console.log('req.params.id:(get ONE training) 😁 ', [id])
+    sql = `DELETE FROM trainings WHERE id=?`
+    //console.log(sql)
+    db.run(sql, [id], (err, response) => {
+        response = `the id: ${id} training deleted...`
+        console.log('response:(delete ONE training) 😁 ', response)
+        if (err) return console.error(err)
+        res.send(response)
+    })
+})
 
 //getData('https://random-data-api.com/api/users/random_user?search=20')
 async function getData(url) {
