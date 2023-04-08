@@ -48,7 +48,15 @@ app.post('/createuser/', bodyParser.json(), async (req, res) => {
         })
     //res.end()
     res.header("Access-Control-Allow-Origin", "*");
-    res.send('new user added...')
+
+    sql = 'SELECT * FROM users;'
+    await db.all(sql, [], (err, response) => {
+        console.log('response: 😁😁😁😁😁😁 ', response)
+        if (err) return console.error(err)
+        res.send(response)
+    })
+
+    /* res.send('new user added...') */
 })
 
 //INFO - delete user
@@ -82,7 +90,9 @@ async function getAllData() {
 app.get('/trainings', (req, res) => {
     sql = 'SELECT * FROM trainings;'
     db.all(sql, [], (err, response) => {
-        //console.log('response: 😁 ', response)
+        //NOTE - CTRL ALT L * turbo console log
+        console.log("🚀 ~ file: server.js:85 ~ db.all ~ response:", response)
+        console.log('response: 😁 ', response)
         if (err) return console.error(err)
         res.send(response)
     })

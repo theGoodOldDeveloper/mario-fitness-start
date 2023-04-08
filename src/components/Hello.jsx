@@ -37,7 +37,8 @@ const Hello = (props) => {
         //setSendMinute((new Date()).getMinutes())
         console.log('frissitettem', sendMinute)
         window.location.reload();
-    }, 60000)
+    }, 6000000)//BUG - katto nulla
+
     if (!localStorage.getItem('isLogin')) {
         localStorage.setItem('isLogin', '*')
         console.log('isLogin = *')

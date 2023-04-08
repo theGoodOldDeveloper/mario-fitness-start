@@ -24,12 +24,36 @@ function MessageModal(props) {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  useEffect(() => {
+    try {
+      fetchData()
+      async function fetchData() {
+        let response = await MemberService.getAllMembers()
+        //console.log('members********: ', response.data)
+        setMembers(members => response.data)
+      }
+    } catch (error) {
+      return new Response('<h1>Something went wrong</h1>', {
+        status: 500,
+        headers: { 'content-type': 'text/html' },
+      });
+    }
+  }, [])
+
   const register = async () => {
-    //console.log('regelek', props.messageData, nickName)
     try {
       let response = await MemberService.createMember(member)
       if (response) {
         localStorage.setItem('memberName', member.username)
+        localStorage.setItem('memberEmil', member.emil)
+        let newMembers = response.data
+        setMembers(members = newMembers)
+        for (let newMember of members) {
+          if (newMember.emil === member.emil) {
+            localStorage.setItem('memberID', newMember.ID)
+          }
+        }
         isEmail = true
         navigate('/', { replace: true })
       }
@@ -42,7 +66,7 @@ function MessageModal(props) {
     }
   }
 
-  useEffect(() => {
+  /* useEffect(() => {
     try {
       fetchData()
       async function fetchData() {
@@ -57,7 +81,7 @@ function MessageModal(props) {
         headers: { 'content-type': 'text/html' },
       });
     }
-  }, [])
+  }, []) */
 
   //NOTE - isEmail
   let isEmail = false
@@ -66,6 +90,8 @@ function MessageModal(props) {
     if (ismember.emil === props.messageData) {
       isEmail = true
       localStorage.setItem('memberName', ismember.username)
+      localStorage.setItem('memberEmil', ismember.emil)
+      localStorage.setItem('memberID', ismember.ID)
     }
   }
 
