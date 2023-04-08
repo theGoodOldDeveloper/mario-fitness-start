@@ -96,8 +96,8 @@ app.post('/createtrainingbooking/', bodyParser.json(), async (req, res) => {
     var member = req.body
     var bookingDATE = new Date()
     console.log('bookingDATE: ', bookingDATE)
-    sql = "INSERT INTO trainings (trainingID, name, trainingDATE, bookingID, bookingDATE) VALUES (?,?,?,?,?)"
-    await db.run(sql, [member.trainingID, member.name, member.trainingDATE, member.bookingID, bookingDATE],
+    sql = "INSERT INTO trainings (trainingID, name, trainingDATE, personID, bookingDATE) VALUES (?,?,?,?,?)"
+    await db.run(sql, [member.trainingID, member.name, member.trainingDATE, member.personID, bookingDATE],
         (err) => {
             if (err) return console.error(err)
         })
