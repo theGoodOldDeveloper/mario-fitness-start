@@ -10,7 +10,7 @@ function MessageModal(props) {
   const [show, setShow] = useState(false);
 
   let [nickName, setNickName] = useState('')
-  let [members, setMembers] = useState('')
+  let [members, setMembers] = useState('*+*')
   let [member, setMember] = useState('')
   let createLoginNickName = (event) => {
     //console.log(event.target.value)
@@ -31,7 +31,14 @@ function MessageModal(props) {
       async function fetchData() {
         let response = await MemberService.getAllMembers()
         //console.log('members********: ', response.data)
-        setMembers(members => response.data)
+
+
+        console.log("😎 ~ file: MessageModal.jsx:48 ~ register ~ members:", members)
+        console.log("😎😎😎 ~ file: MessageModal.jsx:48 ~ register ~ response.data:", response.data)
+        setMembers(members = response.data)
+        console.log("😎😎😎😎😎 ~ file: MessageModal.jsx:48 ~ register ~ members:", members)
+
+
       }
     } catch (error) {
       return new Response('<h1>Something went wrong</h1>', {
@@ -45,10 +52,17 @@ function MessageModal(props) {
     try {
       let response = await MemberService.createMember(member)
       if (response) {
+
+
+        console.log("🚀 ~ file: MessageModal.jsx:48 ~ register ~ response.data:", response.data)
         localStorage.setItem('memberName', member.username)
         localStorage.setItem('memberEmil', member.emil)
         let newMembers = response.data
-        setMembers(members = newMembers)
+        console.log("🚀🚀🚀 ~ file: MessageModal.jsx:48 ~ register ~ newMembers:", newMembers)
+        setMembers(members = response.data)
+        console.log("🚀🚀🚀🚀🚀 ~ file: MessageModal.jsx:48 ~ register ~ otherMembers:", members)
+
+
         for (let newMember of members) {
           if (newMember.emil === member.emil) {
             localStorage.setItem('memberID', newMember.ID)

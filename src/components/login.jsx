@@ -20,9 +20,11 @@ const Login = () => {
             fetchData()
             async function fetchData() {
                 let response = await MemberService.getAllMembers()
-                setMembers(members => response.data)
+                console.log("❤ ~ file: Login.jsx:26 ~ fetchData ~ members:", members)
+                console.log("❤❤❤ ~ file: Login.jsx:26 ~ fetchData ~ response.data:", response.data)
+                setMembers(members = response.data)
 
-                console.log("🚀 ❤❤❤ ~ file: Login.jsx:26 ~ fetchData ~ response.data:", response.data)
+                console.log("❤❤❤❤❤ ~ file: Login.jsx:26 ~ fetchData ~ members:", members)
             }
         } catch (error) {
             return new Response('<h1>Something went wrong</h1>', {
