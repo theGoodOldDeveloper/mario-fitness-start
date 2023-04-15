@@ -104,10 +104,10 @@ app.post('/createtrainingbooking/', bodyParser.json(), async (req, res) => {
     //var id = nanoid(10)
     console.log('req.body (): ', req.body)
     var member = req.body
-    var bookingDATE = new Date()
-    console.log('bookingDATE: ', bookingDATE)
+    //var bookingDATE = new Date()
+    //console.log('bookingDATE: ', bookingDATE)
     sql = "INSERT INTO trainings (trainingID, name, trainingDATE, personID, bookingDATE) VALUES (?,?,?,?,?)"
-    await db.run(sql, [member.trainingID, member.name, member.trainingDATE, member.personID, bookingDATE],
+    await db.run(sql, [member.trainingID, member.name, member.trainingDATE, member.personID, member.bookingDATE],
         (err) => {
             if (err) return console.error(err)
         })

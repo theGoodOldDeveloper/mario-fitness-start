@@ -17,4 +17,9 @@ export class MemberService {
     return axios.post(dataURL, member)
   }
 
+  static getAllTrainingBooking() {
+    let dataURL = `${this.serverURL}/trainings`
+    return axios.get(dataURL)
+  }
+
 }

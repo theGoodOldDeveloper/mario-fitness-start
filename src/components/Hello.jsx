@@ -4,47 +4,81 @@ import weekDay from "../weekDay";
 import monthName from "../monthName";
 import actualMonday from "./LookingForMonday";
 import trainingType from "../services/TrainingType";
-import pastTime from "./PastTime"
-import personReservation from "./PersonReservationColor"
+//import personReservationNumber2 from "../components/PersonReservationNumber";
+import TrainingBooking from './TrainingBooking'
+import pastTime from "./PastTime" //HACK - button COPY
+import personReservation from "./PersonReservationColor" //HACK - button COPY
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLeftLong, faRightLong } from '@fortawesome/free-solid-svg-icons'
+import TrainingBTN from '../components/TrainingBTN'
+import actualTypeBookindDateWEEK from './ActualTypeBookindDate'
 
 console.log('trainingType: ', trainingType)
 
-let datum = new Date()
+//HACK - button COPY * let datum = new Date()
 let oneDayCorrection = 24 * 60 * 60 * 1000
 let oneweekCorrection = 7 * 24 * 60 * 60 * 1000
 //INFO - let weekNumber = 0
 
+let sendDay = 0 //HACK - button COPY
+let sendHour = 0 //HACK - button COPY
+let sendMinute = 0 //HACK - button COPY
+//let personReservationNumber = [8, 11, 7, 9, 15, 2, 8, 10, 5, 9, 12]
 
-let sendDay = 0
-let sendHour = 0
-let sendMinute = 0
-let personReservationNumber = [8, 11, 7, 9, 15, 2, 8, 10, 5, 9, 12]
-
-let prColor = 'btn btn-success m-1'
+let prColor = 'btn btn-success m-1' //HACK - button COPY
 
 function onClickReaction(data) {
     console.log('click vooot', data)
     alert('foglaltam a kovetkezore: ' + data)
-}
+} //HACK - button COPY
 
-/* console.log(weekDay)
-console.log(datum)
-console.log(weekDay[datum.getDay()]) */
-//console.log('************************', (datum.getDay() < 2), datum.getDay())//NOTE - !!!!!!!
 const Hello = (props) => {
     const [weekNumber, setWeekNumber] = useState(0)
-    //let [sendMinute, setSendMinute] = useState(datum.getMinutes())
-    /* console.log('datum.getMinutes()', datum.getMinutes())
-    console.log('sendMinute', sendMinute) */
+    let allTrainingBooking = []
+    let typeBooking = []
+    let typeBookingDate = []
+    allTrainingBooking = TrainingBooking()
+    //let allTrainingBookingNumber = personReservationNumber2(actualMonday, weekNumber).training
+    let allTrainingBookingNumber = TrainingBooking().training
+    typeBooking = allTrainingBooking.training.map(booking => booking.trainingID)
+    typeBookingDate = allTrainingBooking.training.map(booking => booking.trainingDATE)
+
+    let personReservationNumber = bookingNumber()
+
+    function bookingNumber() {
+        let weekTypeBookindDate = actualTypeBookindDateWEEK(trainingType, actualMonday, weekNumber)
+        /* console.log('weekTypeBookindDate: ❤❤❤❤', weekTypeBookindDate)
+        console.log('trainingType: ❤❤👀❤❤', trainingType)
+        console.log('typeBooking: ❤❤👀👀👀👀👀❤❤', typeBooking)
+        console.log('typeBookingDate: ❤❤👀👀👀👀👀❤❤', typeBookingDate) */
+        let index = 0
+        weekTypeBookindDate.map((type) => {
+            let isBooking = 0
+            typeBookingDate.filter((booking) => {
+                if (booking === type) {
+                    isBooking++
+                }
+            })
+            allTrainingBookingNumber[index] = (isBooking)
+            index++
+        })
+        return allTrainingBookingNumber
+    }
+
+    /* if (allTrainingBookingNumber.length > 0) {
+        console.log('huraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+    } else {
+        console.log('ba.............................................meg!!!!!!')
+    }
+    console.log('allTrainingBookingNumber: ❤❤👀❤❤', allTrainingBookingNumber)
+    console.log('allTrainingBookingNumber: ❤❤👀❤❤', allTrainingBookingNumber.length) */
 
     setInterval(() => {
         //setSendMinute((new Date()).getMinutes())
-        console.log('frissitettem', sendMinute)
+        console.log('frissitettem 😊')
         window.location.reload();
-    }, 60000)//BUG - katto nulla !!! korrigaalva !!!
+    }, 6000000)//BUG - katto nulla  NEEEEM  !!! korrigaalva !!!
 
     if (!localStorage.getItem('isLogin')) {
         localStorage.setItem('isLogin', '*')
@@ -63,7 +97,8 @@ const Hello = (props) => {
                 ><FontAwesomeIcon icon={faLeftLong} size="2xl" /></button>
                 <img src="mario-fitness.jpg" alt="Márió Fitness" width="128" height="128"></img>
                 <button className="btn btn-dark  ms-3"
-                    onClick={() => setWeekNumber(weekNumber + 1)}
+                    onClick={() => setWeekNumber(preWeekNumber => preWeekNumber + 1)}
+                /* onClick={() => setWeekNumber(weekNumber + 1)} */
                 ><FontAwesomeIcon icon={faRightLong} size="2xl" /></button>
             </div>
             <h3 className="card bg-light text-success mb-4 p-2" >Légy üdvözölve {localStorage.getItem('memberName')}! 😉</h3>
@@ -76,21 +111,8 @@ const Hello = (props) => {
                 </h2>
                 <div className="d-flex justify-content-around">
 
-                    <button className={personReservation(prColor = personReservationNumber[0])}
-                        id={trainingType[0].trainingID}
-                        onClick={() => onClickReaction(trainingType[0].trainingID)}
-                        disabled={pastTime(sendDay = (new Date(actualMonday + oneDayCorrection * 0 + oneweekCorrection * weekNumber)).getMonth(),
-                            (new Date(actualMonday + oneDayCorrection * 0 + oneweekCorrection * weekNumber)).getDate(), sendHour = trainingType[0].hour,
-                            sendMinute = trainingType[0].minute)}>
-                        {trainingType[0].trainingName} {trainingType[0].time}</button>
-
-                    <button className={personReservation(prColor = personReservationNumber[1])}
-                        id={trainingType[1].trainingID}
-                        onClick={() => onClickReaction(trainingType[1].trainingID)}
-                        disabled={pastTime(sendDay = (new Date(actualMonday + oneDayCorrection * 0 + oneweekCorrection * weekNumber)).getMonth(),
-                            (new Date(actualMonday + oneDayCorrection * 0 + oneweekCorrection * weekNumber)).getDate(), sendHour = trainingType[1].hour,
-                            sendMinute = trainingType[1].minute)}>
-                        {trainingType[1].trainingName} {trainingType[1].time}</button>
+                    <TrainingBTN ppersonReservationNumber={personReservationNumber[0]} ptrainingType={trainingType[0]} pweekNumber={weekNumber} pWeekDayNumber={0} />
+                    <TrainingBTN ppersonReservationNumber={personReservationNumber[1]} ptrainingType={trainingType[1]} pweekNumber={weekNumber} pWeekDayNumber={0} />
                 </div>
             </div>
 
@@ -102,27 +124,9 @@ const Hello = (props) => {
                     {(new Date(actualMonday + oneDayCorrection * 1 + oneweekCorrection * weekNumber)).getDate()})
                 </h2>
                 <div className="d-flex justify-content-around">
-                    <button className={personReservation(prColor = personReservationNumber[2])}
-                        id={trainingType[2].trainingID}
-                        onClick={() => onClickReaction(trainingType[2].trainingID)}
-                        disabled={pastTime(sendDay = (new Date(actualMonday + oneDayCorrection * 1 + oneweekCorrection * weekNumber)).getMonth(),
-                            (new Date(actualMonday + oneDayCorrection * 1 + oneweekCorrection * weekNumber)).getDate(),
-                            sendHour = trainingType[2].hour, sendMinute = trainingType[2].minute)}>
-                        {trainingType[2].trainingName} {trainingType[2].time}</button>
-                    <button className={personReservation(prColor = personReservationNumber[3])}
-                        id={trainingType[3].trainingID}
-                        onClick={() => onClickReaction(trainingType[3].trainingID)}
-                        disabled={pastTime(sendDay = (new Date(actualMonday + oneDayCorrection * 1 + oneweekCorrection * weekNumber)).getMonth(),
-                            (new Date(actualMonday + oneDayCorrection * 1 + oneweekCorrection * weekNumber)).getDate(), sendHour = trainingType[3].hour,
-                            sendMinute = trainingType[3].minute)}>
-                        {trainingType[3].trainingName} {trainingType[3].time}</button>
-                    <button className={personReservation(prColor = personReservationNumber[4])}
-                        id={trainingType[4].trainingID}
-                        onClick={() => onClickReaction(trainingType[4].trainingID)}
-                        disabled={pastTime(sendDay = (new Date(actualMonday + oneDayCorrection * 1 + oneweekCorrection * weekNumber)).getMonth(),
-                            (new Date(actualMonday + oneDayCorrection * 1 + oneweekCorrection * weekNumber)).getDate(), sendHour = trainingType[4].hour,
-                            sendMinute = trainingType[4].minute)}>
-                        {trainingType[4].trainingName} {trainingType[4].time}</button>
+                    <TrainingBTN ppersonReservationNumber={personReservationNumber[2]} ptrainingType={trainingType[2]} pweekNumber={weekNumber} pWeekDayNumber={1} />
+                    <TrainingBTN ppersonReservationNumber={personReservationNumber[3]} ptrainingType={trainingType[3]} pweekNumber={weekNumber} pWeekDayNumber={1} />
+                    <TrainingBTN ppersonReservationNumber={personReservationNumber[4]} ptrainingType={trainingType[4]} pweekNumber={weekNumber} pWeekDayNumber={1} />
                 </div>
             </div>
 
@@ -134,15 +138,7 @@ const Hello = (props) => {
                     {(new Date(actualMonday + oneDayCorrection * 2 + oneweekCorrection * weekNumber)).getDate()})
                 </h2>
                 <div className="d-flex justify-content-around">
-                    {/* <button className='btn btn-success m-1 '>TRX</button>
-                    <button className='btn btn-success m-1 '>TRX</button> */}
-                    <button className={personReservation(prColor = personReservationNumber[5])}
-                        id={trainingType[5].trainingID}
-                        onClick={() => onClickReaction(trainingType[5].trainingID)}
-                        disabled={pastTime(sendDay = (new Date(actualMonday + oneDayCorrection * 2 + oneweekCorrection * weekNumber)).getMonth(),
-                            (new Date(actualMonday + oneDayCorrection * 2 + oneweekCorrection * weekNumber)).getDate(),
-                            sendHour = trainingType[5].hour, sendMinute = trainingType[5].minute)}>
-                        {trainingType[5].trainingName} {trainingType[5].time}</button>
+                    <TrainingBTN ppersonReservationNumber={personReservationNumber[5]} ptrainingType={trainingType[5]} pweekNumber={weekNumber} pWeekDayNumber={2} />
                 </div>
             </div>
 
@@ -154,69 +150,15 @@ const Hello = (props) => {
                     {(new Date(actualMonday + oneDayCorrection * 3 + oneweekCorrection * weekNumber)).getDate()})
                 </h2>
                 <div className="d-flex justify-content-around">
-                    <button className={personReservation(prColor = personReservationNumber[6])}
-                        id={trainingType[6].trainingID}
-                        onClick={() => onClickReaction(trainingType[6].trainingID)}
-                        disabled={pastTime(sendDay = (new Date(actualMonday + oneDayCorrection * 3 + oneweekCorrection * weekNumber)).getMonth(),
-                            (new Date(actualMonday + oneDayCorrection * 3 + oneweekCorrection * weekNumber)).getDate(), sendHour = trainingType[6].hour,
-                            sendMinute = trainingType[6].minute)}>
-                        {trainingType[6].trainingName} {trainingType[6].time}</button>
-                    <button className={personReservation(prColor = personReservationNumber[7])}
-                        id={trainingType[7].trainingID}
-                        onClick={() => onClickReaction(trainingType[7].trainingID)}
-                        disabled={pastTime(sendDay = (new Date(actualMonday + oneDayCorrection * 3 + oneweekCorrection * weekNumber)).getMonth(),
-                            (new Date(actualMonday + oneDayCorrection * 3 + oneweekCorrection * weekNumber)).getDate(), sendHour = trainingType[7].hour,
-                            sendMinute = trainingType[7].minute)}>
-                        {trainingType[7].trainingName} {trainingType[7].time}</button>
-                    <button className={personReservation(prColor = personReservationNumber[8])}
-                        id={trainingType[8].trainingID}
-                        onClick={() => onClickReaction(trainingType[8].trainingID)}
-                        disabled={pastTime(sendDay = (new Date(actualMonday + oneDayCorrection * 3 + oneweekCorrection * weekNumber)).getMonth(),
-                            (new Date(actualMonday + oneDayCorrection * 3 + oneweekCorrection * weekNumber)).getDate(), sendHour = trainingType[8].hour,
-                            sendMinute = trainingType[8].minute)}>
-                        {trainingType[8].trainingName} {trainingType[8].time}</button>
+                    <TrainingBTN ppersonReservationNumber={personReservationNumber[6]} ptrainingType={trainingType[6]} pweekNumber={weekNumber} pWeekDayNumber={3} />
+                    <TrainingBTN ppersonReservationNumber={personReservationNumber[7]} ptrainingType={trainingType[7]} pweekNumber={weekNumber} pWeekDayNumber={3} />
+                    <TrainingBTN ppersonReservationNumber={personReservationNumber[8]} ptrainingType={trainingType[8]} pweekNumber={weekNumber} pWeekDayNumber={3} />
                 </div>
             </div>
 
             {/* //NOTE - PÉNTEK */}
-            {/* <div className="card bg-light mb-2 p-2" >
-                <h2 className="bg-info">
-                    {weekDay[(new Date(actualMonday + oneDayCorrection * 4)).getDay()]} -
-                    ({monthName[(new Date(actualMonday + oneDayCorrection * 4 + oneweekCorrection * weekNumber)).getMonth()]}.
-                    {(new Date(actualMonday + oneDayCorrection * 4 + oneweekCorrection * weekNumber)).getDate()})
-                </h2>
-                <div className="d-flex justify-content-around">
-                    <button className='btn btn-success m-1 '>TRX</button>
-                    <button className='btn btn-success m-1 '>TRX</button>
-                    <button className='btn btn-success m-1'>TRX</button>
-                </div>
-            </div> */}
 
             {/* //NOTE - SZOMBAT */}
-            {/* <div className="card bg-light mb-2 p-2" >
-                <h2 className="bg-info">
-                    {weekDay[(new Date(actualMonday + oneDayCorrection * 5)).getDay()]} -
-                    ({monthName[(new Date(actualMonday + oneDayCorrection * 5 + oneweekCorrection * weekNumber)).getMonth()]}.
-                    {(new Date(actualMonday + oneDayCorrection * 5 + oneweekCorrection * weekNumber)).getDate()})
-                </h2>
-                <div className="d-flex justify-content-around">
-                    <button className={personReservation(prColor = personReservationNumber[6])}
-                        disabled={pastTime(sendDay = (new Date(actualMonday + oneDayCorrection * 5 + oneweekCorrection * weekNumber)).getMonth(), 
-                            (new Date(actualMonday + oneDayCorrection * 5 + oneweekCorrection * weekNumber)).getDate(), 
-                            sendHour = trainingType[6].hour, sendMinute = trainingType[6].minute)}>
-                        TRXtest</button>
-                    <button className={personReservation(prColor = personReservationNumber[7])}
-                        disabled={pastTime(sendDay = (new Date(actualMonday + oneDayCorrection * 5 + oneweekCorrection * weekNumber)).getMonth(), 
-                            (new Date(actualMonday + oneDayCorrection * 5 + oneweekCorrection * weekNumber)).getDate(), 
-                            sendHour = trainingType[7].hour, sendMinute = trainingType[7].minute)}>
-                        TRXtest</button>
-                    <button className={personReservation(prColor = personReservationNumber[8])}
-                        disabled={pastTime(sendDay = (new Date(actualMonday + oneDayCorrection * 5 + oneweekCorrection * weekNumber)).getMonth(), 
-                            (new Date(actualMonday + oneDayCorrection * 5 + oneweekCorrection * weekNumber)).getDate(), 
-                            sendHour = trainingType[8].hour, sendMinute = trainingType[8].minute)}>
-                        TRXtest</button>
-                </div>
-            </div> */}
 
             {/* //NOTE - VASÁRNAP */}
             <div className="card bg-light mb-2 p-2" >
@@ -226,20 +168,8 @@ const Hello = (props) => {
                     {(new Date(actualMonday + oneDayCorrection * 6 + oneweekCorrection * weekNumber)).getDate()})
                 </h2>
                 <div className="d-flex justify-content-around">
-                    <button className={personReservation(prColor = personReservationNumber[9])}
-                        id={trainingType[9].trainingID}
-                        onClick={() => onClickReaction(trainingType[9].trainingID)}
-                        disabled={pastTime(sendDay = (new Date(actualMonday + oneDayCorrection * 6 + oneweekCorrection * weekNumber)).getMonth(),
-                            (new Date(actualMonday + oneDayCorrection * 6 + oneweekCorrection * weekNumber)).getDate(), sendHour = trainingType[9].hour,
-                            sendMinute = trainingType[9].minute)}>
-                        {trainingType[9].trainingName} {trainingType[9].time}</button>
-                    <button className={personReservation(prColor = personReservationNumber[10])}
-                        id={trainingType[10].trainingID}
-                        onClick={() => onClickReaction(trainingType[10].trainingID)}
-                        disabled={pastTime(sendDay = (new Date(actualMonday + oneDayCorrection * 6 + oneweekCorrection * weekNumber)).getMonth(),
-                            (new Date(actualMonday + oneDayCorrection * 6 + oneweekCorrection * weekNumber)).getDate(), sendHour = trainingType[10].hour,
-                            sendMinute = trainingType[10].minute)}>
-                        {trainingType[10].trainingName} {trainingType[10].time}</button>
+                    <TrainingBTN ppersonReservationNumber={personReservationNumber[9]} ptrainingType={trainingType[9]} pweekNumber={weekNumber} pWeekDayNumber={6} />
+                    <TrainingBTN ppersonReservationNumber={personReservationNumber[10]} ptrainingType={trainingType[10]} pweekNumber={weekNumber} pWeekDayNumber={6} />
                 </div>
             </div>
 
@@ -291,3 +221,19 @@ export default Hello
                 </div>
             </div>
 */
+/* //HACK - button component */
+/* <button className={personReservation(prColor = personReservationNumber[0])}
+    id={trainingType[0].trainingID}
+    onClick={() => onClickReaction(trainingType[0].trainingID)}
+    disabled={pastTime(sendDay = (new Date(actualMonday + oneDayCorrection * 0 + oneweekCorrection * weekNumber)).getMonth(),
+        (new Date(actualMonday + oneDayCorrection * 0 + oneweekCorrection * weekNumber)).getDate(), sendHour = trainingType[0].hour,
+        sendMinute = trainingType[0].minute)}>
+    {trainingType[0].trainingName} {trainingType[0].time}</button>
+<button className={personReservation(prColor = personReservationNumber[1])}
+    id={trainingType[1].trainingID}
+    onClick={() => onClickReaction(trainingType[1].trainingID)}
+    disabled={pastTime(sendDay = (new Date(actualMonday + oneDayCorrection * 0 + oneweekCorrection * weekNumber)).getMonth(),
+        (new Date(actualMonday + oneDayCorrection * 0 + oneweekCorrection * weekNumber)).getDate(), sendHour = trainingType[1].hour,
+        sendMinute = trainingType[1].minute)}>
+    {trainingType[1].trainingName} {trainingType[1].time}</button> */
+/* //HACK - button component */
