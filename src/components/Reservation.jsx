@@ -34,7 +34,12 @@ function Reservation({ state }) {
   return (
     <div className='container text-center'>
       <img src="mario-fitness.jpg" alt="Márió Fitness" width="128" height="128"></img>
-      <h1>{responseData.training.map(data => data.trainingID)}</h1>
+      <h3>{responseData.training.map((data) => {
+        if (data.trainingID === location.state.trainigType) {
+          return data.trainingID
+
+        }
+      })}</h3>
       <div>
         <Link to={'/'} className='btn btn-success'>Hoooo, vissza!</Link>
       </div>

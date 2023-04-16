@@ -32,23 +32,23 @@ function TrainingBTN({ ppersonReservationNumber, ptrainingType, pweekNumber, pWe
     d2: 'this is props data...'
   }
 
+  let isPastTime = pastTime(sendDay = (new Date(actualMonday + oneDayCorrection * pWeekDayNumber + oneweekCorrection * pweekNumber)).getMonth(),
+    (new Date(actualMonday + oneDayCorrection * pWeekDayNumber + oneweekCorrection * pweekNumber)).getDate(),
+    sendHour = ptrainingType.hour,
+    sendMinute = ptrainingType.minute)
 
   prColor = ppersonReservationNumber
   //let navigate = useNavigate()
   return (
     <div>
-      <Link to={'/reservation'} state={data}>
+      <Link to={isPastTime ? '/' : '/reservation'} state={data}>
         <button className={personReservation(prColor)}
           id={{ ptrainingType }.trainingID}
           /* onClick={() => onClickReaction(ptrainingType.trainingID)} */
-          disabled={pastTime(sendDay = (new Date(actualMonday + oneDayCorrection * pWeekDayNumber + oneweekCorrection * pweekNumber)).getMonth(),
-            (new Date(actualMonday + oneDayCorrection * pWeekDayNumber + oneweekCorrection * pweekNumber)).getDate(), sendHour = ptrainingType.hour,
-            sendMinute = ptrainingType.minute)}>
+          disabled={isPastTime}>
           <span className="badge bg-secondary">{ppersonReservationNumber}</span> {ptrainingType.trainingName} {ptrainingType.time}
         </button>
-
       </Link>
-
     </div>
   )
 }
