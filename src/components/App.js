@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes, Navigate } from 'react-router-dom'
 import Hello from "./Hello";
 import Login from "./Login";
+import Reservation from "./Reservation";
 import MessageModal from "./MessageModal.jsx";
 
 const App = () => {
@@ -11,6 +12,7 @@ const App = () => {
             <Routes>
                 <Route path={"/"} element={<Hello />} />
                 <Route path={"/login"} element={<Login />} />
+                <Route path={"/reservation"} element={<Reservation />} />
             </Routes>
         </React.Fragment>
     )

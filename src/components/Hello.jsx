@@ -44,10 +44,11 @@ const Hello = (props) => {
     typeBooking = allTrainingBooking.training.map(booking => booking.trainingID)
     typeBookingDate = allTrainingBooking.training.map(booking => booking.trainingDATE)
 
+    let weekTypeBookindDate = []
     let personReservationNumber = bookingNumber()
 
     function bookingNumber() {
-        let weekTypeBookindDate = actualTypeBookindDateWEEK(trainingType, actualMonday, weekNumber)
+        weekTypeBookindDate = actualTypeBookindDateWEEK(trainingType, actualMonday, weekNumber)
         /* console.log('weekTypeBookindDate: ❤❤❤❤', weekTypeBookindDate)
         console.log('trainingType: ❤❤👀❤❤', trainingType)
         console.log('typeBooking: ❤❤👀👀👀👀👀❤❤', typeBooking)
@@ -86,9 +87,7 @@ const Hello = (props) => {
         return (
             <Navigate to={'/login'} />
         )
-    }
-
-    else {
+    } else {
         return (<div className='container text-center'>
             <div>
                 <button className="btn btn-info me-4"
@@ -111,8 +110,8 @@ const Hello = (props) => {
                 </h2>
                 <div className="d-flex justify-content-around">
 
-                    <TrainingBTN ppersonReservationNumber={personReservationNumber[0]} ptrainingType={trainingType[0]} pweekNumber={weekNumber} pWeekDayNumber={0} />
-                    <TrainingBTN ppersonReservationNumber={personReservationNumber[1]} ptrainingType={trainingType[1]} pweekNumber={weekNumber} pWeekDayNumber={0} />
+                    <TrainingBTN ppersonReservationNumber={personReservationNumber[0]} ptrainingType={trainingType[0]} pweekNumber={weekNumber} pWeekDayNumber={0} pweekTypeBookindDate={weekTypeBookindDate[0]} />
+                    <TrainingBTN ppersonReservationNumber={personReservationNumber[1]} ptrainingType={trainingType[1]} pweekNumber={weekNumber} pWeekDayNumber={0} pweekTypeBookindDate={weekTypeBookindDate[1]} />
                 </div>
             </div>
 
@@ -124,9 +123,9 @@ const Hello = (props) => {
                     {(new Date(actualMonday + oneDayCorrection * 1 + oneweekCorrection * weekNumber)).getDate()})
                 </h2>
                 <div className="d-flex justify-content-around">
-                    <TrainingBTN ppersonReservationNumber={personReservationNumber[2]} ptrainingType={trainingType[2]} pweekNumber={weekNumber} pWeekDayNumber={1} />
-                    <TrainingBTN ppersonReservationNumber={personReservationNumber[3]} ptrainingType={trainingType[3]} pweekNumber={weekNumber} pWeekDayNumber={1} />
-                    <TrainingBTN ppersonReservationNumber={personReservationNumber[4]} ptrainingType={trainingType[4]} pweekNumber={weekNumber} pWeekDayNumber={1} />
+                    <TrainingBTN ppersonReservationNumber={personReservationNumber[2]} ptrainingType={trainingType[2]} pweekNumber={weekNumber} pWeekDayNumber={1} pweekTypeBookindDate={weekTypeBookindDate[2]} />
+                    <TrainingBTN ppersonReservationNumber={personReservationNumber[3]} ptrainingType={trainingType[3]} pweekNumber={weekNumber} pWeekDayNumber={1} pweekTypeBookindDate={weekTypeBookindDate[3]} />
+                    <TrainingBTN ppersonReservationNumber={personReservationNumber[4]} ptrainingType={trainingType[4]} pweekNumber={weekNumber} pWeekDayNumber={1} pweekTypeBookindDate={weekTypeBookindDate[4]} />
                 </div>
             </div>
 
@@ -138,7 +137,7 @@ const Hello = (props) => {
                     {(new Date(actualMonday + oneDayCorrection * 2 + oneweekCorrection * weekNumber)).getDate()})
                 </h2>
                 <div className="d-flex justify-content-around">
-                    <TrainingBTN ppersonReservationNumber={personReservationNumber[5]} ptrainingType={trainingType[5]} pweekNumber={weekNumber} pWeekDayNumber={2} />
+                    <TrainingBTN ppersonReservationNumber={personReservationNumber[5]} ptrainingType={trainingType[5]} pweekNumber={weekNumber} pWeekDayNumber={2} pweekTypeBookindDate={weekTypeBookindDate[5]} />
                 </div>
             </div>
 
@@ -150,9 +149,9 @@ const Hello = (props) => {
                     {(new Date(actualMonday + oneDayCorrection * 3 + oneweekCorrection * weekNumber)).getDate()})
                 </h2>
                 <div className="d-flex justify-content-around">
-                    <TrainingBTN ppersonReservationNumber={personReservationNumber[6]} ptrainingType={trainingType[6]} pweekNumber={weekNumber} pWeekDayNumber={3} />
-                    <TrainingBTN ppersonReservationNumber={personReservationNumber[7]} ptrainingType={trainingType[7]} pweekNumber={weekNumber} pWeekDayNumber={3} />
-                    <TrainingBTN ppersonReservationNumber={personReservationNumber[8]} ptrainingType={trainingType[8]} pweekNumber={weekNumber} pWeekDayNumber={3} />
+                    <TrainingBTN ppersonReservationNumber={personReservationNumber[6]} ptrainingType={trainingType[6]} pweekNumber={weekNumber} pWeekDayNumber={3} pweekTypeBookindDate={weekTypeBookindDate[6]} />
+                    <TrainingBTN ppersonReservationNumber={personReservationNumber[7]} ptrainingType={trainingType[7]} pweekNumber={weekNumber} pWeekDayNumber={3} pweekTypeBookindDate={weekTypeBookindDate[7]} />
+                    <TrainingBTN ppersonReservationNumber={personReservationNumber[8]} ptrainingType={trainingType[8]} pweekNumber={weekNumber} pWeekDayNumber={3} pweekTypeBookindDate={weekTypeBookindDate[8]} />
                 </div>
             </div>
 
@@ -168,12 +167,16 @@ const Hello = (props) => {
                     {(new Date(actualMonday + oneDayCorrection * 6 + oneweekCorrection * weekNumber)).getDate()})
                 </h2>
                 <div className="d-flex justify-content-around">
-                    <TrainingBTN ppersonReservationNumber={personReservationNumber[9]} ptrainingType={trainingType[9]} pweekNumber={weekNumber} pWeekDayNumber={6} />
-                    <TrainingBTN ppersonReservationNumber={personReservationNumber[10]} ptrainingType={trainingType[10]} pweekNumber={weekNumber} pWeekDayNumber={6} />
+                    <TrainingBTN ppersonReservationNumber={personReservationNumber[9]} ptrainingType={trainingType[9]} pweekNumber={weekNumber} pWeekDayNumber={6} pweekTypeBookindDate={weekTypeBookindDate[9]} />
+                    <TrainingBTN ppersonReservationNumber={personReservationNumber[10]} ptrainingType={trainingType[10]} pweekNumber={weekNumber} pWeekDayNumber={6} pweekTypeBookindDate={weekTypeBookindDate[10]} />
                 </div>
             </div>
 
-            <Link to={'/login'} className='btn btn-success'>Jelentkezz be!</Link>
+            <div>
+                <Link to={'/reservation'} className='btn btn-danger m-3'>FOGLALJ!!!</Link>
+
+                <Link to={'/login'} className='btn btn-success'>Jelentkezz be!</Link>
+            </div>
         </div >)
     }
 }

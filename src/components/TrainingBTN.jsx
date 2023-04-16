@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { Navigate, useNavigate, Link } from 'react-router-dom';
 import personReservation from "./PersonReservationColor"
 import trainingType from "../services/TrainingType";
 import pastTime from "./PastTime"
@@ -13,29 +14,42 @@ let sendDay = 0
 let sendHour = 0
 let sendMinute = 0
 
-function onClickReaction(data) {
-  console.log('click vooot', data)
-  alert('foglaltam a kovetkezore: ' + data)
-}
-
-
-function TrainingBTN({ ppersonReservationNumber, ptrainingType, pweekNumber, pWeekDayNumber }) {
+function TrainingBTN({ ppersonReservationNumber, ptrainingType, pweekNumber, pWeekDayNumber, pweekTypeBookindDate }) {
   /* console.log("🚀 ~ file: TrainingBTN.jsx:22 ~ TrainingBTN ~ ppersonReservationNumber:", ppersonReservationNumber) */
   /* console.log("🚀🚀🚀 ~ file: TrainingBTN.jsx:22 ~ TrainingBTN ~ ptrainingType:", ptrainingType)
  */
+  function onClickReaction(data) {
+    console.log('click vooot', data)
+    alert('foglaltam a kovetkezore: ' + data)
+
+  }
+  let data = {
+    personReservationNumber: ppersonReservationNumber,
+    trainigType: ptrainingType.trainingID,
+    weekNumber: pweekNumber,
+    weekDayNumber: pWeekDayNumber,
+    weekTypeBookindDate: pweekTypeBookindDate,
+    d2: 'this is props data...'
+  }
+
+
   prColor = ppersonReservationNumber
-
+  //let navigate = useNavigate()
   return (
+    <div>
+      <Link to={'/reservation'} state={data}>
+        <button className={personReservation(prColor)}
+          id={{ ptrainingType }.trainingID}
+          /* onClick={() => onClickReaction(ptrainingType.trainingID)} */
+          disabled={pastTime(sendDay = (new Date(actualMonday + oneDayCorrection * pWeekDayNumber + oneweekCorrection * pweekNumber)).getMonth(),
+            (new Date(actualMonday + oneDayCorrection * pWeekDayNumber + oneweekCorrection * pweekNumber)).getDate(), sendHour = ptrainingType.hour,
+            sendMinute = ptrainingType.minute)}>
+          <span className="badge bg-secondary">{ppersonReservationNumber}</span> {ptrainingType.trainingName} {ptrainingType.time}
+        </button>
 
-    <button className={personReservation(prColor)}
-      id={{ ptrainingType }.trainingID}
-      onClick={() => onClickReaction(ptrainingType.trainingID)}
-      /* onClick={() => onClickReaction(new Date(actualMonday + oneDayCorrection * pWeekDayNumber + oneweekCorrection * pweekNumber))} */
-      disabled={pastTime(sendDay = (new Date(actualMonday + oneDayCorrection * pWeekDayNumber + oneweekCorrection * pweekNumber)).getMonth(),
-        (new Date(actualMonday + oneDayCorrection * pWeekDayNumber + oneweekCorrection * pweekNumber)).getDate(), sendHour = ptrainingType.hour,
-        sendMinute = ptrainingType.minute)}>
-      <span className="badge bg-secondary">{ppersonReservationNumber}</span> {ptrainingType.trainingName} {ptrainingType.time}</button>
+      </Link>
 
+    </div>
   )
 }
 
