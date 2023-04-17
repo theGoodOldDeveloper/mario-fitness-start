@@ -22,4 +22,14 @@ export class MemberService {
     return axios.get(dataURL)
   }
 
+  static deleteTrainingBooking(memberID) {
+    let dataURL = `${this.serverURL}/deletetrainingbooking/${memberID}`
+    console.log(dataURL)
+    return axios.delete(dataURL)
+  }
+
+  static createTrainingBooking(member) {
+    let dataURL = `${this.serverURL}/createtrainingbooking`
+    return axios.post(dataURL, member)
+  }
 }

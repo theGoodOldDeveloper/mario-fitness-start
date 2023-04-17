@@ -32,10 +32,35 @@ function Reservation({ state }) {
     }, []
   )
 
-  function onClickReaction(isBookingBTN) {
-    //alert(isBookingBTN)
+  function onClickReaction(isBookingBTN, deleteItem) {
     if (isBookingBTN) {
-      alert(localStorage.getItem('memberID'))
+      deleteTrainingBooking(deleteItem)
+      //delete contact
+      async function deleteTrainingBooking(memberID) {
+        try {
+          let response = await MemberService.deleteTrainingBooking(memberID)
+          if (response) {
+            /* fetchData()
+            async function fetchData() {
+                setState({ ...state, loading: true })
+                let response = await MemberService.getAllContacts()
+                setState({
+                    ...state,
+                    loading: false,
+                    contacts: response.data,
+                    filteredContacts: response.data
+                })
+                //console.log(response.data)
+            } */
+          }
+        } catch (error) {
+          return new Response('<h1>Something went wrong</h1>', {
+            status: 500,
+            headers: { 'content-type': 'text/html' },
+          });
+        }
+      }
+
     } else {
       let sendDATA = {
         trainingID: location.state.data.trainigType,
@@ -44,8 +69,25 @@ function Reservation({ state }) {
         personID: localStorage.getItem('memberID'),
         bookingDATE: (new Date()).getTime()
       }
-      console.log(sendDATA)
-      alert(sendDATA)
+      console.log(sendDATA.trainingID)
+      createTrainigBooking(sendDATA)
+      async function createTrainigBooking(sendDATA) {
+        try {
+          let response = await MemberService.createTrainingBooking(sendDATA)
+          //navigate("/contacts/list")
+          //if (response) {
+          //console.log('eljutsz te ide', response)
+          //navigate('/contacts/list', { replace: true })
+          //console.log('eljutsz te ide', response)
+        }
+        catch (error) {
+          return new Response('<h1>Something went wrong</h1>', {
+            status: 500,
+            headers: { 'content-type': 'text/html' },
+          });
+        }
+      }
+
     }
     /* 
     true = DELETE training
@@ -59,12 +101,14 @@ function Reservation({ state }) {
   let filter
   let memberIDBTNTEXT = 'Bejelentkezem'
   let isBookingBTN = false
+  let deleteItem = -1
   //console.log("🚀🚀🚀🚀🚀 ~ file: Reservation.jsx:12 ~ Reservation ~ location.state:", location.state)
   let memberID = parseInt(localStorage.getItem('memberID'))
   filter = responseData.training.map(isBooking => {
     if (isBooking.personID === memberID && isBooking.trainingDATE === location.state.data.weekTypeBookindDate) {
       memberIDBTNTEXT = 'Törlöm'
       isBookingBTN = true
+      deleteItem = isBooking.ID
       return true
     } else { return false }
   })
@@ -72,6 +116,9 @@ function Reservation({ state }) {
   //console.log("😎😎😎😎😎😎😎 ~ file: Reservation.jsx:12 ~ Reservation ~ location.state.data:", location.state.data)
   let index = 0
   let prColor = location.state.data.personReservationNumber
+  let hiddenTag = prColor !== 8 ? 'hidden' : ''
+  console.log("🚀 ~ file: Reservation.jsx:120 ~ onClickReaction ~ hiddenTag:", hiddenTag, prColor)
+
   return (
 
     <div className='container text-center'>
@@ -82,14 +129,15 @@ function Reservation({ state }) {
           return (
             <React.Fragment key={data.ID}>
               <div>
-                <p key={data.ID}> {data.personID} : {data.name} {index}</p>
+                <p key={data.ID}>{index} {data.name} ({data.personID})</p>
+                <p hidden={index !== 8}>----- Tartalék 😊 -----</p>
               </div>
             </React.Fragment>)
         }
       })}</h3>
       <button className={personReservation(prColor)}
         disabled={!isBookingBTN && (location.state.data.personReservationNumber >= 10)}
-        onClick={() => onClickReaction(isBookingBTN)}
+        onClick={() => onClickReaction(isBookingBTN, deleteItem)}
       >{memberIDBTNTEXT}</button>
       <div>
         <Link to={'/'} className='btn btn-secondary'>Hoooo, vissza!</Link>

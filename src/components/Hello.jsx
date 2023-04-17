@@ -1,18 +1,19 @@
-//import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, Navigate } from "react-router-dom";
 import weekDay from "../weekDay";
 import monthName from "../monthName";
 import actualMonday from "./LookingForMonday";
 import trainingType from "../services/TrainingType";
 //import personReservationNumber2 from "../components/PersonReservationNumber";
-import TrainingBooking from './TrainingBooking'
+//import TrainingBooking from './TrainingBooking'
 import pastTime from "./PastTime" //HACK - button COPY
 import personReservation from "./PersonReservationColor" //HACK - button COPY
-import { useState } from "react";
+//import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLeftLong, faRightLong } from '@fortawesome/free-solid-svg-icons'
 import TrainingBTN from '../components/TrainingBTN'
 import actualTypeBookindDateWEEK from './ActualTypeBookindDate'
+import { MemberService } from "../services/MemberService"
 
 console.log('trainingType: ', trainingType)
 
@@ -35,12 +36,36 @@ function onClickReaction(data) {
 
 const Hello = (props) => {
     const [weekNumber, setWeekNumber] = useState(0)
-    let allTrainingBooking = []
+    const [allTrainingBooking, setAllTrainingBooking] = useState({
+        training: []
+    })
+
+    useEffect(
+        () => {
+            try {
+                fetchData()
+                async function fetchData() {
+                    let response = await MemberService.getAllTrainingBooking()
+                    setAllTrainingBooking({
+                        training: response.data
+                    })
+                    //console.log("❤❤❤ ~ file: Login.jsx:26 ~ fetchData ~ response.data:", responseData.training)
+                }
+            } catch (error) {
+                return new Response('<h1>Something went wrong</h1>', {
+                    status: 500,
+                    headers: { 'content-type': 'text/html' },
+                });
+            }
+        }, [allTrainingBooking]
+    )
+
+    //let allTrainingBooking = []
     let typeBooking = []
     let typeBookingDate = []
-    allTrainingBooking = TrainingBooking()
+    //allTrainingBooking = TrainingBooking()
     //let allTrainingBookingNumber = personReservationNumber2(actualMonday, weekNumber).training
-    let allTrainingBookingNumber = TrainingBooking().training
+    let allTrainingBookingNumber = allTrainingBooking.training
     typeBooking = allTrainingBooking.training.map(booking => booking.trainingID)
     typeBookingDate = allTrainingBooking.training.map(booking => booking.trainingDATE)
 
@@ -173,9 +198,7 @@ const Hello = (props) => {
             </div>
 
             <div>
-                <Link to={'/reservation'} className='btn btn-danger m-3'>FOGLALJ!!!</Link>
-
-                <Link to={'/login'} className='btn btn-success'>Jelentkezz be!</Link>
+                <Link to={'/login'} className='btn btn-dark'>Jelentkezz be!</Link>
             </div>
         </div >)
     }
