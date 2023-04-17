@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Navigate, useNavigate, Link } from 'react-router-dom';
+import { Navigate, useNavigate, Link } from 'react-router-dom';//FIXME - navigate 
 import personReservation from "./PersonReservationColor"
 import trainingType from "../services/TrainingType";
 import pastTime from "./PastTime"
@@ -18,12 +18,14 @@ function TrainingBTN({ ppersonReservationNumber, ptrainingType, pweekNumber, pWe
   /* console.log("🚀 ~ file: TrainingBTN.jsx:22 ~ TrainingBTN ~ ppersonReservationNumber:", ppersonReservationNumber) */
   /* console.log("🚀🚀🚀 ~ file: TrainingBTN.jsx:22 ~ TrainingBTN ~ ptrainingType:", ptrainingType)
  */
-  function onClickReaction(data) {
-    console.log('click vooot', data)
-    alert('foglaltam a kovetkezore: ' + data)
-
+  const navigate = useNavigate() //FIXME - navigate 
+  function onClickReaction() {
+    console.log('click vooot',)
+    //alert('foglaltam a kovetkezore: ')
+    navigate("/reservation", { state: { data: data } }) //FIXME - navigate 
+    //navigate("/reservation", { state: { data: pweekTypeBookindDate } })
   }
-  let data = {
+  const data = {
     personReservationNumber: ppersonReservationNumber,
     trainigType: ptrainingType.trainingID,
     weekNumber: pweekNumber,
@@ -41,14 +43,14 @@ function TrainingBTN({ ppersonReservationNumber, ptrainingType, pweekNumber, pWe
   //let navigate = useNavigate()
   return (
     <div>
-      <Link to={isPastTime ? '/' : '/reservation'} state={data}>
-        <button className={personReservation(prColor)}
-          id={{ ptrainingType }.trainingID}
-          /* onClick={() => onClickReaction(ptrainingType.trainingID)} */
-          disabled={isPastTime}>
-          <span className="badge bg-secondary">{ppersonReservationNumber}</span> {ptrainingType.trainingName} {ptrainingType.time}
-        </button>
-      </Link>
+      {/* <Link to={isPastTime ? '/' : '/reservation'} state={data}> */}
+      <button className={personReservation(prColor)}
+        id={{ ptrainingType }.trainingID}
+        onClick={() => onClickReaction()}
+        disabled={isPastTime}>
+        <span className="badge bg-secondary">{ppersonReservationNumber}</span> {ptrainingType.trainingName} {ptrainingType.time}
+      </button>
+      {/* </Link> */}
     </div>
   )
 }
