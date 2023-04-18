@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate, Link, useLocation } from "react-router-dom";
-import TrainingBooking from './TrainingBooking'
+//import TrainingBooking from './TrainingBooking'
 import { MemberService } from "../services/MemberService"
 import personReservation from "./PersonReservationColor"
 
 function Reservation({ state }) {
   const location = useLocation();
   const navigate = useNavigate()
-  console.log("🎁🎁🎁🎁🎁 ~ file: Reservation.jsx:8 ~ Reservation ~ location.state:", location.state)
-
+  //console.log("🎁🎁🎁🎁🎁 ~ file: Reservation.jsx:8 ~ Reservation ~ location.state:", location.state)
   let [responseData, setResponseData] = useState({
     training: []
   })
@@ -35,23 +34,11 @@ function Reservation({ state }) {
   function onClickReaction(isBookingBTN, deleteItem) {
     if (isBookingBTN) {
       deleteTrainingBooking(deleteItem)
-      //delete contact
+      //INFO - delete contact
       async function deleteTrainingBooking(memberID) {
         try {
           let response = await MemberService.deleteTrainingBooking(memberID)
           if (response) {
-            /* fetchData()
-            async function fetchData() {
-                setState({ ...state, loading: true })
-                let response = await MemberService.getAllContacts()
-                setState({
-                    ...state,
-                    loading: false,
-                    contacts: response.data,
-                    filteredContacts: response.data
-                })
-                //console.log(response.data)
-            } */
           }
         } catch (error) {
           return new Response('<h1>Something went wrong</h1>', {
@@ -74,11 +61,6 @@ function Reservation({ state }) {
       async function createTrainigBooking(sendDATA) {
         try {
           let response = await MemberService.createTrainingBooking(sendDATA)
-          //navigate("/contacts/list")
-          //if (response) {
-          //console.log('eljutsz te ide', response)
-          //navigate('/contacts/list', { replace: true })
-          //console.log('eljutsz te ide', response)
         }
         catch (error) {
           return new Response('<h1>Something went wrong</h1>', {
@@ -87,9 +69,8 @@ function Reservation({ state }) {
           });
         }
       }
-
     }
-    /* 
+    /* NOTE
     true = DELETE training
     false = CREATE training
     < to={'/'}
@@ -97,7 +78,7 @@ function Reservation({ state }) {
     navigate("/")
   }
 
-  console.log("👀👀👀👀👀 ~ file: Reservation.jsx:17 ~ Reservation ~ responseData:", responseData.training)
+  //console.log("👀👀👀👀👀 ~ file: Reservation.jsx:17 ~ Reservation ~ responseData:", responseData.training)
   let filter
   let memberIDBTNTEXT = 'Bejelentkezem'
   let isBookingBTN = false
@@ -112,15 +93,11 @@ function Reservation({ state }) {
       return true
     } else { return false }
   })
-  //console.log("😎😎😎😎😎😎😎 ~ file: Reservation.jsx:12 ~ Reservation ~ filter:", filter)
-  //console.log("😎😎😎😎😎😎😎 ~ file: Reservation.jsx:12 ~ Reservation ~ location.state.data:", location.state.data)
   let index = 0
   let prColor = location.state.data.personReservationNumber
   let hiddenTag = prColor !== 8 ? 'hidden' : ''
-  console.log("🚀 ~ file: Reservation.jsx:120 ~ onClickReaction ~ hiddenTag:", hiddenTag, prColor)
 
   return (
-
     <div className='container text-center'>
       <img src="mario-fitness.jpg" alt="Márió Fitness" width="128" height="128"></img>
       <h3>{responseData.training.map((data) => {
@@ -135,16 +112,19 @@ function Reservation({ state }) {
             </React.Fragment>)
         }
       })}</h3>
+
       <button className={personReservation(prColor)}
         disabled={!isBookingBTN && (location.state.data.personReservationNumber >= 10)}
         onClick={() => onClickReaction(isBookingBTN, deleteItem)}
       >{memberIDBTNTEXT}</button>
+
+      <div className='card text-bg-danger m-2' hidden={!(location.state.data.personReservationNumber >= 10)}>CSAK TÖRLÉS! </div>
+      <div className='card text-bg-info m-2' hidden={(location.state.data.personReservationNumber >= 10)}>BEJELENKEZÉS vagy TÖRLÉS! </div>
+
       <div>
         <Link to={'/'} className='btn btn-secondary'>Hoooo, vissza!</Link>
       </div>
-
     </div>
-
   )
 }
 

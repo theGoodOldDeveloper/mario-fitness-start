@@ -6,8 +6,8 @@ import actualMonday from "./LookingForMonday";
 import trainingType from "../services/TrainingType";
 //import personReservationNumber2 from "../components/PersonReservationNumber";
 //import TrainingBooking from './TrainingBooking'
-import pastTime from "./PastTime" //HACK - button COPY
-import personReservation from "./PersonReservationColor" //HACK - button COPY
+//import pastTime from "./PastTime" //HACK - button COPY
+//import personReservation from "./PersonReservationColor" //HACK - button COPY
 //import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLeftLong, faRightLong } from '@fortawesome/free-solid-svg-icons'
@@ -15,19 +15,19 @@ import TrainingBTN from '../components/TrainingBTN'
 import actualTypeBookindDateWEEK from './ActualTypeBookindDate'
 import { MemberService } from "../services/MemberService"
 
-console.log('trainingType: ', trainingType)
+//console.log('trainingType: ', trainingType)
 
 //HACK - button COPY * let datum = new Date()
 let oneDayCorrection = 24 * 60 * 60 * 1000
 let oneweekCorrection = 7 * 24 * 60 * 60 * 1000
 //INFO - let weekNumber = 0
 
-let sendDay = 0 //HACK - button COPY
-let sendHour = 0 //HACK - button COPY
-let sendMinute = 0 //HACK - button COPY
+//let sendDay = 0 //HACK - button COPY
+//let sendHour = 0 //HACK - button COPY
+//let sendMinute = 0 //HACK - button COPY
 //let personReservationNumber = [8, 11, 7, 9, 15, 2, 8, 10, 5, 9, 12]
 
-let prColor = 'btn btn-success m-1' //HACK - button COPY
+//let prColor = 'btn btn-success m-1' //HACK - button COPY
 
 function onClickReaction(data) {
     console.log('click vooot', data)
@@ -100,11 +100,12 @@ const Hello = (props) => {
     console.log('allTrainingBookingNumber: ❤❤👀❤❤', allTrainingBookingNumber)
     console.log('allTrainingBookingNumber: ❤❤👀❤❤', allTrainingBookingNumber.length) */
 
-    setInterval(() => {
+    //BUG - katto nulla   !!! korrigaalva !!!
+    /* setInterval(() => {
         //setSendMinute((new Date()).getMinutes())
         console.log('frissitettem 😊')
         window.location.reload();
-    }, 6000000)//BUG - katto nulla  NEEEEM  !!! korrigaalva !!!
+    }, 60000) */
 
     if (!localStorage.getItem('isLogin')) {
         localStorage.setItem('isLogin', '*')
@@ -197,9 +198,9 @@ const Hello = (props) => {
                 </div>
             </div>
 
-            <div>
+            {/* <div>
                 <Link to={'/login'} className='btn btn-dark'>Jelentkezz be!</Link>
-            </div>
+            </div> */}
         </div >)
     }
 }

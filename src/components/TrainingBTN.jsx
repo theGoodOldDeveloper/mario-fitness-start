@@ -20,7 +20,6 @@ function TrainingBTN({ ppersonReservationNumber, ptrainingType, pweekNumber, pWe
  */
   const navigate = useNavigate() //FIXME - navigate 
   function onClickReaction() {
-    console.log('click vooot',)
     //alert('foglaltam a kovetkezore: ')
     navigate("/reservation", { state: { data: data } }) //FIXME - navigate 
     //navigate("/reservation", { state: { data: pweekTypeBookindDate } })

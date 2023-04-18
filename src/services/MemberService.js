@@ -24,7 +24,6 @@ export class MemberService {
 
   static deleteTrainingBooking(memberID) {
     let dataURL = `${this.serverURL}/deletetrainingbooking/${memberID}`
-    console.log(dataURL)
     return axios.delete(dataURL)
   }
 
